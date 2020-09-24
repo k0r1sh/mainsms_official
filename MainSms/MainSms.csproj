@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Nikolay Kornev</Authors>
+    <Company>MainSms</Company>
+    <Description>Free implementation of the API of the SMS sending service mainsms.ru</Description>
+    <Copyright>MainSms</Copyright>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageProjectUrl>https://mainsms.ru</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageTags>mainsms, mainsms.ru, sms, send sms</PackageTags>
+    <PackageId>mainsms_official</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\k0r1sh\Desktop\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
