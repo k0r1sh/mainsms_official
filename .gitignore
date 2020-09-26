@@ -354,3 +354,5 @@ MigrationBackup/
 ImageTests/Snapshot.cs
 ImageTests/Program.cs
 ImageTests/ImageTests.csproj
+
+*App.config
