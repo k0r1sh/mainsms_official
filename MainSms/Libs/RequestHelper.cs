@@ -7,11 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
-/*#if NETSTANDARD1_4
-using System.Text.Encodings.Web;
-#elif NET45
-using System.Web;
-#endif*/
 
 namespace MainSms.Libs
 {
@@ -77,14 +72,5 @@ namespace MainSms.Libs
             }
             return result;
         }
-
-        /*        private string Encode(string text)
-                {
-        #if NETSTANDARD1_4
-                    return UrlEncoder.Default.Encode(text);
-        #elif NET45
-                    return HttpUtility.UrlEncode(text);
-        #endif
-                }*/
     }
 }
