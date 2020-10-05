@@ -1,131 +1,131 @@
-## Официальная реализация API MainSMS.ru для C#
+## РћС„РёС†РёР°Р»СЊРЅР°СЏ СЂРµР°Р»РёР·Р°С†РёСЏ API MainSMS.ru РґР»СЏ C#
 [![NuGet](https://img.shields.io/nuget/v/mainsms_official)](https://www.nuget.org/packages/mainsms_official/)
 
-[MainSMS.ru](http://MainSMS.ru) это платформа для транзакционных SMS уведомлений и SMS рассылок.
+[MainSMS.ru](http://MainSMS.ru) СЌС‚Рѕ РїР»Р°С‚С„РѕСЂРјР° РґР»СЏ С‚СЂР°РЅР·Р°РєС†РёРѕРЅРЅС‹С… SMS СѓРІРµРґРѕРјР»РµРЅРёР№ Рё SMS СЂР°СЃСЃС‹Р»РѕРє.
 
-### Установка
+### РЈСЃС‚Р°РЅРѕРІРєР°
 
-> Проект собран для .NET 45 и .NET Platform Standard 1.4.
+> РџСЂРѕРµРєС‚ СЃРѕР±СЂР°РЅ РґР»СЏ .NET 45 Рё .NET Platform Standard 1.4.
 
-Установка из менеджера пакетов Nuget или из командной строки
+РЈСЃС‚Р°РЅРѕРІРєР° РёР· РјРµРЅРµРґР¶РµСЂР° РїР°РєРµС‚РѕРІ Nuget РёР»Рё РёР· РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
 
 `PM> Install-Package MainSMS`
 
-### Использование
-#### Подключение пространства имен
+### РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ
+#### РџРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ
 ````c#
 using MainSms;
 ````
-#### Инициализируем объект класса Sms
-В качестве параметра передаем project_id, api_key и если необходимо is_test и use_ssl.
-project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
-is_test - если true то смс не будут отправляться.
-use_ssl - если true то будет использоваться протокол https.
+#### РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° Sms
+Р’ РєР°С‡РµСЃС‚РІРµ РїР°СЂР°РјРµС‚СЂР° РїРµСЂРµРґР°РµРј project_id, api_key Рё РµСЃР»Рё РЅРµРѕР±С…РѕРґРёРјРѕ is_test Рё use_ssl.
+project_id, api_key РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РЅР° СЃС‚СЂР°РЅРёС†Рµ https://mainsms.ru/office/api_accounts
+is_test - РµСЃР»Рё true С‚Рѕ СЃРјСЃ РЅРµ Р±СѓРґСѓС‚ РѕС‚РїСЂР°РІР»СЏС‚СЊСЃСЏ.
+use_ssl - РµСЃР»Рё true С‚Рѕ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РїСЂРѕС‚РѕРєРѕР» https.
 ````c#
 Sms sms = new Sms(project_id, api_key);
 ````
-#### Ответы на запросы
-Любой запрос к API, возвращает объект класса который содержит поля 
-| Поле | Описание |Значения|
+#### РћС‚РІРµС‚С‹ РЅР° Р·Р°РїСЂРѕСЃС‹
+Р›СЋР±РѕР№ Р·Р°РїСЂРѕСЃ Рє API, РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° РєРѕС‚РѕСЂС‹Р№ СЃРѕРґРµСЂР¶РёС‚ РїРѕР»СЏ 
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |Р—РЅР°С‡РµРЅРёСЏ|
 | ------ | ------ | ------ |
-| status | Статус выполнения запроса |success или error |
-| erorr | Код ошибки если статус error | [Смотрите коды ошибок для вызываемого метода](https://mainsms.ru/home/api/main#send) |
-| message | Описание ошибки если статус error | [Смотрите описание ошибок для вызываемого метода](https://mainsms.ru/home/api/main#send) |
-| response | Исходный XML ответа на API вызов | |
+| status | РЎС‚Р°С‚СѓСЃ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃР° |success РёР»Рё error |
+| erorr | РљРѕРґ РѕС€РёР±РєРё РµСЃР»Рё СЃС‚Р°С‚СѓСЃ error | [РЎРјРѕС‚СЂРёС‚Рµ РєРѕРґС‹ РѕС€РёР±РѕРє РґР»СЏ РІС‹Р·С‹РІР°РµРјРѕРіРѕ РјРµС‚РѕРґР°](https://mainsms.ru/home/api/main#send) |
+| message | РћРїРёСЃР°РЅРёРµ РѕС€РёР±РєРё РµСЃР»Рё СЃС‚Р°С‚СѓСЃ error | [РЎРјРѕС‚СЂРёС‚Рµ РѕРїРёСЃР°РЅРёРµ РѕС€РёР±РѕРє РґР»СЏ РІС‹Р·С‹РІР°РµРјРѕРіРѕ РјРµС‚РѕРґР°](https://mainsms.ru/home/api/main#send) |
+| response | РСЃС…РѕРґРЅС‹Р№ XML РѕС‚РІРµС‚Р° РЅР° API РІС‹Р·РѕРІ | |
 
-А так же поля доступные только для конкретного ответа на запрос, например для ResponseBalance достуано поле balance. 
-#### Запрос баланса
+Рђ С‚Р°Рє Р¶Рµ РїРѕР»СЏ РґРѕСЃС‚СѓРїРЅС‹Рµ С‚РѕР»СЊРєРѕ РґР»СЏ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ РѕС‚РІРµС‚Р° РЅР° Р·Р°РїСЂРѕСЃ, РЅР°РїСЂРёРјРµСЂ РґР»СЏ ResponseBalance РґРѕСЃС‚СѓР°РЅРѕ РїРѕР»Рµ balance. 
+#### Р—Р°РїСЂРѕСЃ Р±Р°Р»Р°РЅСЃР°
 ````c#
 ResponseBalance responseBalance = sms.getBalance();
 if (responseBalance.status == "success") Console.WriteLine(responseBalance.balance);
 else Console.WriteLine("Error - " + responseBalance.message);
 ````
-##### Поля класса ResponseBalance
-| Поле | Описание |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponseBalance
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| balance | Остаток средств на счете |
-#### Расчет стоимости отправки
+| balance | РћСЃС‚Р°С‚РѕРє СЃСЂРµРґСЃС‚РІ РЅР° СЃС‡РµС‚Рµ |
+#### Р Р°СЃС‡РµС‚ СЃС‚РѕРёРјРѕСЃС‚Рё РѕС‚РїСЂР°РІРєРё
 ````c#
 ResponsePrice responsePrice = sms.getMessagesPrice("sender_name", "89121231234,9121231235", "test text");
-if (responsePrice.status == "success") Console.WriteLine($"Частей в одной смс {responsePrice.parts}, всего частей {responsePrice.count}, стоимость отправки {responsePrice.price}");
+if (responsePrice.status == "success") Console.WriteLine($"Р§Р°СЃС‚РµР№ РІ РѕРґРЅРѕР№ СЃРјСЃ {responsePrice.parts}, РІСЃРµРіРѕ С‡Р°СЃС‚РµР№ {responsePrice.count}, СЃС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё {responsePrice.price}");
 else Console.WriteLine("Error - " + responsePrice.message);
 ````
-##### Поля класса ResponsePrice
-| Поле | Описание |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponsePrice
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| recipients | Массив номеров получателей |
-| balance | Остаток средств на счете |
-| parts | Количество частей в одной смс |
-| count | Всего частей смс |
-| price | Стоимость отправки |
-#### Отправка SMS сообщения
+| recipients | РњР°СЃСЃРёРІ РЅРѕРјРµСЂРѕРІ РїРѕР»СѓС‡Р°С‚РµР»РµР№ |
+| balance | РћСЃС‚Р°С‚РѕРє СЃСЂРµРґСЃС‚РІ РЅР° СЃС‡РµС‚Рµ |
+| parts | РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃС‚РµР№ РІ РѕРґРЅРѕР№ СЃРјСЃ |
+| count | Р’СЃРµРіРѕ С‡Р°СЃС‚РµР№ СЃРјСЃ |
+| price | РЎС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё |
+#### РћС‚РїСЂР°РІРєР° SMS СЃРѕРѕР±С‰РµРЅРёСЏ
 ````c#
 ResponseSend responseSend = sms.sendSms("sender_name", "79609701234", "test SMS message");
-if (responseSend.status == "success") Console.WriteLine($"Частей в одной смс {responseSend.parts}, всего частей {responseSend.count}, стоимость отправки {responseSend.price}");
+if (responseSend.status == "success") Console.WriteLine($"Р§Р°СЃС‚РµР№ РІ РѕРґРЅРѕР№ СЃРјСЃ {responseSend.parts}, РІСЃРµРіРѕ С‡Р°СЃС‚РµР№ {responseSend.count}, СЃС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё {responseSend.price}");
 else Console.WriteLine("Error - " + responseSend.message);
 ````
-> Меток sendSms, может принимать в качестве четвертого параметра параметр типа DateTime, со временем на которое необходимо запланировать отправку сообщения. Время указывается в [часовом поясе кабинета mainsms.ru](https://mainsms.ru/office/user/zone)
-##### Поля класса ResponseSend
-| Поле | Описание |
+> РњРµС‚РѕРє sendSms, РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ С‡РµС‚РІРµСЂС‚РѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РїР°СЂР°РјРµС‚СЂ С‚РёРїР° DateTime, СЃРѕ РІСЂРµРјРµРЅРµРј РЅР° РєРѕС‚РѕСЂРѕРµ РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїР»Р°РЅРёСЂРѕРІР°С‚СЊ РѕС‚РїСЂР°РІРєСѓ СЃРѕРѕР±С‰РµРЅРёСЏ. Р’СЂРµРјСЏ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РІ [С‡Р°СЃРѕРІРѕРј РїРѕСЏСЃРµ РєР°Р±РёРЅРµС‚Р° mainsms.ru](https://mainsms.ru/office/user/zone)
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponseSend
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| recipients | Массив номеров получателей |
-| messages_id | Массив идентификаторов сообщений |
-| balance | Остаток на средств счете |
-| parts | Количество частей в одной смс |
-| count | Всего частей смс |
-| price | Стоимость отправки |
-| test | 1 если режим тестирования и 0 если сообщения отправляются |
-#### Отправка Viber сообщения
+| recipients | РњР°СЃСЃРёРІ РЅРѕРјРµСЂРѕРІ РїРѕР»СѓС‡Р°С‚РµР»РµР№ |
+| messages_id | РњР°СЃСЃРёРІ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ СЃРѕРѕР±С‰РµРЅРёР№ |
+| balance | РћСЃС‚Р°С‚РѕРє РЅР° СЃСЂРµРґСЃС‚РІ СЃС‡РµС‚Рµ |
+| parts | РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃС‚РµР№ РІ РѕРґРЅРѕР№ СЃРјСЃ |
+| count | Р’СЃРµРіРѕ С‡Р°СЃС‚РµР№ СЃРјСЃ |
+| price | РЎС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё |
+| test | 1 РµСЃР»Рё СЂРµР¶РёРј С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ Рё 0 РµСЃР»Рё СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚РїСЂР°РІР»СЏСЋС‚СЃСЏ |
+#### РћС‚РїСЂР°РІРєР° Viber СЃРѕРѕР±С‰РµРЅРёСЏ
 ````c#
 ResponseSend responseSend = sms.sendViber("mainsms", "79609701234", "test Viber message", "http://autodrive.org.ua/wp-content/uploads/2018/11/final-logo-example.png", "Buy now", "https://mainsms.ru");
-if (responseSend.status == "success") Console.WriteLine($"Частей в одном сообщении {responseSend.parts}, всего частей {responseSend.count}, стоимость отправки {responseSend.price}");
+if (responseSend.status == "success") Console.WriteLine($"Р§Р°СЃС‚РµР№ РІ РѕРґРЅРѕРј СЃРѕРѕР±С‰РµРЅРёРё {responseSend.parts}, РІСЃРµРіРѕ С‡Р°СЃС‚РµР№ {responseSend.count}, СЃС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё {responseSend.price}");
 else Console.WriteLine("Error - " + responseSend.message);
 ````
-> Меток sendViber, может принимать в качестве дополнительного параметра параметр типа DateTime, со временем на которое необходимо запланировать отправку сообщения. Время указывается в [часовом поясе кабинета mainsms.ru](https://mainsms.ru/office/user/zone)
-#### Отправка Viber или SMS сообщения
-В случае если Viber сообщение доставить не получится, отправится SMS сообщение.
+> РњРµС‚РѕРє sendViber, РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РїР°СЂР°РјРµС‚СЂ С‚РёРїР° DateTime, СЃРѕ РІСЂРµРјРµРЅРµРј РЅР° РєРѕС‚РѕСЂРѕРµ РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїР»Р°РЅРёСЂРѕРІР°С‚СЊ РѕС‚РїСЂР°РІРєСѓ СЃРѕРѕР±С‰РµРЅРёСЏ. Р’СЂРµРјСЏ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РІ [С‡Р°СЃРѕРІРѕРј РїРѕСЏСЃРµ РєР°Р±РёРЅРµС‚Р° mainsms.ru](https://mainsms.ru/office/user/zone)
+#### РћС‚РїСЂР°РІРєР° Viber РёР»Рё SMS СЃРѕРѕР±С‰РµРЅРёСЏ
+Р’ СЃР»СѓС‡Р°Рµ РµСЃР»Рё Viber СЃРѕРѕР±С‰РµРЅРёРµ РґРѕСЃС‚Р°РІРёС‚СЊ РЅРµ РїРѕР»СѓС‡РёС‚СЃСЏ, РѕС‚РїСЂР°РІРёС‚СЃСЏ SMS СЃРѕРѕР±С‰РµРЅРёРµ.
 ````c#
 ResponseSend responseSend = sms.sendViberOrSms("mainsms", "79609701234", "test SMS message", "test Viber message", "http://autodrive.org.ua/wp-content/uploads/2018/11/final-logo-example.png", "Buy now", "https://mainsms.ru");
-if (responseSend.status == "success") Console.WriteLine($"Частей в одном сообщении {responseSend.parts}, всего частей {responseSend.count}, стоимость отправки {responseSend.price}");
+if (responseSend.status == "success") Console.WriteLine($"Р§Р°СЃС‚РµР№ РІ РѕРґРЅРѕРј СЃРѕРѕР±С‰РµРЅРёРё {responseSend.parts}, РІСЃРµРіРѕ С‡Р°СЃС‚РµР№ {responseSend.count}, СЃС‚РѕРёРјРѕСЃС‚СЊ РѕС‚РїСЂР°РІРєРё {responseSend.price}");
 else Console.WriteLine("Error - " + responseSend.message);
 ````
-> Меток sendViberOrSms, может принимать в качестве дополнительного параметра параметр типа DateTime, со временем на которое необходимо запланировать отправку сообщения. Время указывается в [часовом поясе кабинета mainsms.ru](https://mainsms.ru/office/user/zone)
-#### Запрос статуса сообщения
+> РњРµС‚РѕРє sendViberOrSms, РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РїР°СЂР°РјРµС‚СЂ С‚РёРїР° DateTime, СЃРѕ РІСЂРµРјРµРЅРµРј РЅР° РєРѕС‚РѕСЂРѕРµ РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїР»Р°РЅРёСЂРѕРІР°С‚СЊ РѕС‚РїСЂР°РІРєСѓ СЃРѕРѕР±С‰РµРЅРёСЏ. Р’СЂРµРјСЏ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РІ [С‡Р°СЃРѕРІРѕРј РїРѕСЏСЃРµ РєР°Р±РёРЅРµС‚Р° mainsms.ru](https://mainsms.ru/office/user/zone)
+#### Р—Р°РїСЂРѕСЃ СЃС‚Р°С‚СѓСЃР° СЃРѕРѕР±С‰РµРЅРёСЏ
 ````c#
 ResponseStatus responseStatus = sms.getMessagesStatus("1234567");
-if (responseStatus.status == "success") Console.WriteLine($"Статус сообщения 1234567 - {responseStatus.messages["1234567"]}, канал доставки - {responseStatus.channels["1234567"]}");
+if (responseStatus.status == "success") Console.WriteLine($"РЎС‚Р°С‚СѓСЃ СЃРѕРѕР±С‰РµРЅРёСЏ 1234567 - {responseStatus.messages["1234567"]}, РєР°РЅР°Р» РґРѕСЃС‚Р°РІРєРё - {responseStatus.channels["1234567"]}");
 else Console.WriteLine("Error - " + responseStatus.message);
 ````
-##### Поля класса ResponseStatus
-| Поле | Описание |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponseStatus
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| messages | Хранилище ключ значение, где ключ это ID сообщения, а значение его статус |
-| channels | Хранилище ключ значение, где ключ это ID сообщения, а значение канал отправки |
-#### Отмена запланированного сообщения
+| messages | РҐСЂР°РЅРёР»РёС‰Рµ РєР»СЋС‡ Р·РЅР°С‡РµРЅРёРµ, РіРґРµ РєР»СЋС‡ СЌС‚Рѕ ID СЃРѕРѕР±С‰РµРЅРёСЏ, Р° Р·РЅР°С‡РµРЅРёРµ РµРіРѕ СЃС‚Р°С‚СѓСЃ |
+| channels | РҐСЂР°РЅРёР»РёС‰Рµ РєР»СЋС‡ Р·РЅР°С‡РµРЅРёРµ, РіРґРµ РєР»СЋС‡ СЌС‚Рѕ ID СЃРѕРѕР±С‰РµРЅРёСЏ, Р° Р·РЅР°С‡РµРЅРёРµ РєР°РЅР°Р» РѕС‚РїСЂР°РІРєРё |
+#### РћС‚РјРµРЅР° Р·Р°РїР»Р°РЅРёСЂРѕРІР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 ````c#
 ResponseCancel responseCancel = sms.cancelMessages("1234567");
-if (responseCancel.status == "success") Console.WriteLine($"Сообщение 1234567 - {responseCancel.messages["1234567"]}");
+if (responseCancel.status == "success") Console.WriteLine($"РЎРѕРѕР±С‰РµРЅРёРµ 1234567 - {responseCancel.messages["1234567"]}");
 else Console.WriteLine("Error - " + responseCancel.message);
 ````
-##### Поля класса ResponseCancel
-| Поле | Описание |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponseCancel
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| messages | Хранилище ключ значение, где ключ это ID сообщения, а значение его статус (canceled) |
-#### Запрос информации о номерах
+| messages | РҐСЂР°РЅРёР»РёС‰Рµ РєР»СЋС‡ Р·РЅР°С‡РµРЅРёРµ, РіРґРµ РєР»СЋС‡ СЌС‚Рѕ ID СЃРѕРѕР±С‰РµРЅРёСЏ, Р° Р·РЅР°С‡РµРЅРёРµ РµРіРѕ СЃС‚Р°С‚СѓСЃ (canceled) |
+#### Р—Р°РїСЂРѕСЃ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РЅРѕРјРµСЂР°С…
 ````c#
 ResponseInfo responseInfo = sms.getPhonesInfo("9138857567");
-if (responseInfo.status == "success") Console.WriteLine($"Номер 9138857567 принадлежит оператору - {responseInfo.info[0].name}");
+if (responseInfo.status == "success") Console.WriteLine($"РќРѕРјРµСЂ 9138857567 РїСЂРёРЅР°РґР»РµР¶РёС‚ РѕРїРµСЂР°С‚РѕСЂСѓ - {responseInfo.info[0].name}");
 else Console.WriteLine("Error - " + responseInfo.message);
 ````
-##### Поля класса ResponseInfo
-| Поле | Описание |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° ResponseInfo
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| info | Массив объектов типа PhoneInfo |
-##### Поля класса PhoneInfo
-| Поле | Описание |
+| info | РњР°СЃСЃРёРІ РѕР±СЉРµРєС‚РѕРІ С‚РёРїР° PhoneInfo |
+##### РџРѕР»СЏ РєР»Р°СЃСЃР° PhoneInfo
+| РџРѕР»Рµ | РћРїРёСЃР°РЅРёРµ |
 | ------ | ------ |
-| phone | Номер телефона |
-| code | Код оператора |
-| region | Регион |
-| name | Название оператора |
+| phone | РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° |
+| code | РљРѕРґ РѕРїРµСЂР°С‚РѕСЂР° |
+| region | Р РµРіРёРѕРЅ |
+| name | РќР°Р·РІР°РЅРёРµ РѕРїРµСЂР°С‚РѕСЂР° |
 
