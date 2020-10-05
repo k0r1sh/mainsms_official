@@ -19,7 +19,11 @@ namespace MainSms
             {"message_cancel", "/message/cancel"},
             {"message_price", "/message/price"},
             {"message_balance", "/message/balance"},
-            {"message_info", "/message/info"}
+            {"message_info", "/message/info"},
+
+            { "group_list", "/group/list" },
+            { "group_remove", "/group/remove" },
+            { "group_create", "/group/create" }
         };
     }
 }

@@ -53,7 +53,7 @@ namespace MainSms
 
         protected virtual void storeArray(XElement arrayElement) { }
 
-        private Dictionary<string, string> variables = new Dictionary<string, string>();
+        protected Dictionary<string, string> variables = new Dictionary<string, string>();
 
         protected string getValue(string name)
         {

@@ -4,9 +4,9 @@ using System;
 
 namespace MainSmsTests
 {
-    public class MessageTests
+    public class SmsMessageTests
     {
-        private readonly Sms mainSms = new Sms("test_project", "test_key");
+        private readonly SmsMessage mainSms = new SmsMessage("test_project", "test_key");
         [SetUp]
         public void Setup()
         {
@@ -43,7 +43,7 @@ namespace MainSmsTests
             CollectionAssert.Contains(responsePrice.recipients, "79609708097");
             CollectionAssert.Contains(responsePrice.recipients, "79545551232");
         }
-
+        [Test]
         public void SendSmsTest()
         {
             ResponseSend responseSend = mainSms.sendSms("mainsms", "79609708491", "test2 message +", DateTime.Parse("25.09.2020 23:00"));
@@ -56,32 +56,32 @@ namespace MainSmsTests
             CollectionAssert.Contains(responseSend.recipients, "79609708491");
             CollectionAssert.Contains(responseSend.message_ids, "1415");
         }
-
+        [Test]
         public void GetMessageStatusTest()
         {
             ResponseStatus responseStatus = mainSms.getMessagesStatus("1415");
 
             Assert.AreEqual("success", responseStatus.status);
-            CollectionAssert.Contains(responseStatus.messages["1415"], "delivered");
-            CollectionAssert.Contains(responseStatus.channels["1415"], "sms");
+            Assert.AreEqual(responseStatus.messages["1415"], "delivered");
+            Assert.AreEqual(responseStatus.channels["1415"], "sms");
         }
-
+        [Test]
         public void CancelMessagesTest()
         {
             ResponseCancel responseCancel = mainSms.cancelMessages("1515");
 
             Assert.AreEqual("success", responseCancel.status);
-            CollectionAssert.Contains(responseCancel.messages["1515"], "canceled");
+            Assert.AreEqual(responseCancel.messages["1515"], "canceled");
         }
-
+        [Test]
         public void GerPhoneInfo()
         {
             ResponseInfo responseInfo = mainSms.getPhonesInfo("79138857567");
             Assert.AreEqual("success", responseInfo.status);
-            CollectionAssert.Contains(responseInfo.info[0].phone, "79138857567");
-            CollectionAssert.Contains(responseInfo.info[0].code, "Mobile TeleSystems");
-            CollectionAssert.Contains(responseInfo.info[0].region, "Томская обл.");
-            CollectionAssert.Contains(responseInfo.info[0].name, "Мобильные ТелеСистемы");
+            Assert.AreEqual(responseInfo.info[0].phone, "79138857567");
+            Assert.AreEqual(responseInfo.info[0].code, "Mobile TeleSystems");
+            Assert.AreEqual(responseInfo.info[0].region, "Томская обл.");
+            Assert.AreEqual(responseInfo.info[0].name, "Мобильные ТелеСистемы");
         }
     }
 }

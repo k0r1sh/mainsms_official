@@ -9,29 +9,29 @@ using MainSms.Libs;
 
 namespace MainSms
 {
-    public class Sms
+    public class SmsMessage
     {
         private DateTime null_date = new DateTime();
 
         #region Init
         /// <summary>
-        /// Конструктор класса Sms
+        /// Конструктор класса SmsMessage
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
-        public Sms(string _project, string _api_key)
+        public SmsMessage(string _project, string _api_key)
         {
             Settings.project = _project;
             Settings.api_key = _api_key;
         }
 
         /// <summary>
-        /// Конструктор класса Sms
+        /// Конструктор класса SmsMessage
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
         /// <param name="_is_test">Используется для отладки</param>
-        public Sms(string _project, string _api_key, bool _is_test)
+        public SmsMessage(string _project, string _api_key, bool _is_test)
         {
             Settings.project = _project;
             Settings.api_key = _api_key;
@@ -39,13 +39,13 @@ namespace MainSms
         }
 
         /// <summary>
-        /// Конструктор класса Sms
+        /// Конструктор класса SmsMessage
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
         /// <param name="_is_test">Используется для отладки</param>
         /// <param name="_use_ssl">Использовать протокол https</param>
-        public Sms(string _project, string _api_key, bool _is_test, bool _use_ssl)
+        public SmsMessage(string _project, string _api_key, bool _is_test, bool _use_ssl)
         {
             Settings.project = _project;
             Settings.api_key = _api_key;
@@ -268,6 +268,8 @@ namespace MainSms
         }
         #endregion
         #endregion
+
+        
 
     }
 }
