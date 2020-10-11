@@ -6,7 +6,7 @@ namespace MainSmsTests
 {
     public class RecipientsGroupTests
     {
-        private readonly SmsRecipientsGroup mainSms = new SmsRecipientsGroup("test_project", "test_key");
+        private readonly SmsContactsGroup mainSms = new SmsContactsGroup("test_project", "test_key");
         [SetUp]
         public void Setup()
         {

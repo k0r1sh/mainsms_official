@@ -59,7 +59,7 @@ namespace MainSms
     public struct RecipientsGroup
     {
         /// <summary>
-        /// Уникальный идентификатор в системе
+        /// Уникальный идентификатор группы
         /// </summary>
         public string id;
         /// <summary>

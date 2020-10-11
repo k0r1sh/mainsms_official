@@ -12,8 +12,8 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageTags>mainsms, mainsms.ru, sms, send sms</PackageTags>
     <PackageId>mainsms_official</PackageId>
-    <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <Version>1.0.7</Version>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
     <RepositoryUrl>https://github.com/k0r1sh/mainsms_official</RepositoryUrl>
   </PropertyGroup>
 

@@ -7,7 +7,7 @@ namespace MainSms
     public class ResponseGroupCreate : Response
     {
         /// <summary>
-        /// Ответ на запрос списка групп
+        /// Ответ на создание группы получателей
         /// </summary>
         public ResponseGroupCreate(string data) : base(data) { }
 

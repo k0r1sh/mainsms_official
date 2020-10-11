@@ -7,7 +7,7 @@ namespace MainSms
     public class ResponseGroupRemove : Response
     {
         /// <summary>
-        /// Ответ на запрос списка групп
+        /// Ответ на удаление группы получателей
         /// </summary>
         public ResponseGroupRemove(string data) : base(data) { }
 

@@ -23,7 +23,11 @@ namespace MainSms
 
             { "group_list", "/group/list" },
             { "group_remove", "/group/remove" },
-            { "group_create", "/group/create" }
+            { "group_create", "/group/create" },
+
+            { "contact_create", "/contact/create" },
+            { "contact_remove", "/contact/remove" },
+            { "contact_exists", "/contact/exists" }
         };
     }
 }

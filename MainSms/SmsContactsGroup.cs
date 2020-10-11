@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MainSms
 {
-    public class SmsRecipientsGroup
+    public class SmsContactsGroup
     {
         #region Init
         /// <summary>
@@ -13,7 +13,7 @@ namespace MainSms
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
-        public SmsRecipientsGroup(string _project, string _api_key)
+        public SmsContactsGroup(string _project, string _api_key)
         {
             Settings.project = _project;
             Settings.api_key = _api_key;
@@ -26,7 +26,7 @@ namespace MainSms
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
         /// <param name="_use_ssl">Использовать протокол https</param>
-        public SmsRecipientsGroup(string _project, string _api_key, bool _use_ssl)
+        public SmsContactsGroup(string _project, string _api_key, bool _use_ssl)
         {
             Settings.project = _project;
             Settings.api_key = _api_key;

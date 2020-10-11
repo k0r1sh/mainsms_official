@@ -31,6 +31,7 @@ namespace MainSms.Libs
             {
                 foreach(KeyValuePair<string, string> pair in _postParams)
                 {
+                    if (pair.Value == null) continue;
                     postParams.Add(pair.Key, pair.Value);
                 }
             }
