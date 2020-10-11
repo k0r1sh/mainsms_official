@@ -134,7 +134,7 @@ else Console.WriteLine("Error - " + responseInfo.message);
 
 # Работа с группами получателей
 ````c#
-SmsRecipientsGroup smsGroup = new SmsRecipientsGroup(project_id, api_key);
+SmsContactsGroup smsGroup = new SmsContactsGroup(project_id, api_key);
 ````
 В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
 project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
@@ -177,3 +177,65 @@ else Console.WriteLine("Error - " + responseGroupRemove.message);
 | Поле | Описание |
 | ------ | ------ |
 | result | Ответ сеовера "ok" |
+
+# Работа с получателями
+````c#
+SmsContact smsContact = new SmsContact(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+use_ssl - если true то будет использоваться протокол https.
+#### Создание контакта
+````c#
+ContactInfo contactInfo = new ContactInfo();
+contactInfo.phone = "79609709097";
+contactInfo.group = "141515";
+contactInfo.lastname = "Иванов";
+contactInfo.firstname = "Николай";
+contactInfo.patronymic = "Александрович";
+contactInfo.birthday = "24.12.1987";
+contactInfo.param1 = "Параметр 1";
+contactInfo.param2 = "Параметр 2";
+ResponseContactCreate responseContactCreate = smsContact.createContact(contactInfo);
+if (responseContactCreate.status == "success")  Console.WriteLine("Получатель создан");
+else Console.WriteLine("Error - " + responseContactCreate.message);
+````
+##### Поля класса ResponseContactCreate
+| Поле | Описание |
+| ------ | ------ |
+| phones | Массив из номеров которые удалось добавить |
+| group | Массив ID групп в которых встречается номер |
+#### Запрос контакта
+````c#
+ResponseContactExists responseContactExists = smsContact.existsContact("79609709097");
+if (responseContactExists.status == "success")  {
+    Console.WriteLine($"Получатель найден, в группах {responseContactExists.contactInfo[0].group}");
+}
+else Console.WriteLine("Error - " + responseContactExists.message);
+````
+##### Поля класса responseContactExists
+| Поле | Описание |
+| ------ | ------ |
+| contactInfo | Массив объектов типа ContactInfo |
+##### Поля класса ContactInfo
+| Поле | Описание |
+| ------ | ------ |
+| phone | Номер телефона |
+| group | id групп через строкой через запятую |
+| lastname | Фамилия |
+| patronymic | Отчество |
+| birthday | День рождения в фотмате 29.01.1987 |
+| param1 | Параметр 1 |
+| param2 | Параметр 2 |
+#### Удаление контакта
+````c#
+ResponseContactRemove responseContactRemove = smsContact.removeContact("79609709097, 79609709098");
+if (responseContactRemove.status == "success")  {
+    Console.WriteLine($"Удалено {responseContactRemove.phones.Count} контактов");
+}
+else Console.WriteLine("Error - " + responseContactRemove.message);
+````
+##### Поля класса ResponseContactRemove
+| Поле | Описание |
+| ------ | ------ |
+| phones | Массив удаленный номеров |
