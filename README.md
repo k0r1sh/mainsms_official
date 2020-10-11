@@ -16,16 +16,9 @@
 ````c#
 using MainSms;
 ````
-#### Инициализируем объект класса Sms
-В качестве параметра передаем project_id, api_key и если необходимо is_test и use_ssl.
-project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
-is_test - если true то смс не будут отправляться.
-use_ssl - если true то будет использоваться протокол https.
-````c#
-Sms sms = new Sms(project_id, api_key);
-````
+
 #### Ответы на запросы
-Любой запрос к API, возвращает объект класса который содержит поля 
+Любой запрос к API, возвращает объект класса который содержит поля:
 | Поле | Описание |Значения|
 | ------ | ------ | ------ |
 | status | Статус выполнения запроса |success или error |
@@ -33,7 +26,17 @@ Sms sms = new Sms(project_id, api_key);
 | message | Описание ошибки если статус error | [Смотрите описание ошибок для вызываемого метода](https://mainsms.ru/home/api/main#send) |
 | response | Исходный XML ответа на API вызов | |
 
-А так же поля доступные только для конкретного ответа на запрос, например для ResponseBalance достуано поле balance. 
+А так же поля доступные только для конкретного ответа на запрос, например при запросе баланса доступно поле balance. 
+
+# Работа с сообщениями
+````c#
+SmsMessage sms = new SmsMessage(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо is_test и use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+is_test - если true то смс не будут отправляться.
+use_ssl - если true то будет использоваться протокол https.
+
 #### Запрос баланса
 ````c#
 ResponseBalance responseBalance = sms.getBalance();
@@ -129,3 +132,48 @@ else Console.WriteLine("Error - " + responseInfo.message);
 | region | Регион |
 | name | Название оператора |
 
+# Работа с группами получателей
+````c#
+SmsRecipientsGroup smsGroup = new SmsRecipientsGroup(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+use_ssl - если true то будет использоваться протокол https.
+#### Запрос списка групп
+````c#
+ResponseGroupList responseGroupList = smsGroup.getGroupList(GroupType.User);
+if (responseGroupList.status == "success") Console.WriteLine($"Всего групп - {responseGroupList.recipientsGroups.Count}");
+else Console.WriteLine("Error - " + responseGroupList.message);
+````
+##### Поля класса responseGroupList
+| Поле | Описание |
+| ------ | ------ |
+| recipientsGroups | Массив объектов типа RecipientsGroup |
+##### Поля класса RecipientsGroup
+| Поле | Описание |
+| ------ | ------ |
+| id | Уникальный идентификатор группы |
+| name | Название группы получателей |
+| contacts | Количество контактов в группе |
+| type | Тип группы |
+#### Создание группы
+````c#
+ResponseGroupCreate responseGroupCreate = smsGroup.createGroup("group name");
+if (responseGroupCreate.status == "success") Console.WriteLine($"Группа {responseGroupCreate.name} создана, id - {responseGroupCreate.id}");
+else Console.WriteLine("Error - " + responseGroupCreate.message);
+````
+##### Поля класса ResponseGroupCreate
+| Поле | Описание |
+| ------ | ------ |
+| id | Уникальный идентификатор группы |
+| name | Название группы получателей |
+#### Удаление группы
+````c#
+ResponseGroupRemove responseGroupRemove = smsGroup.removeGroup("12345");
+if (responseGroupRemove.status == "success") Console.WriteLine("Группа удалена");
+else Console.WriteLine("Error - " + responseGroupRemove.message);
+````
+##### Поля класса ResponseGroupRemove
+| Поле | Описание |
+| ------ | ------ |
+| result | Ответ сеовера "ok" |
