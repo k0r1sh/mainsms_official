@@ -239,3 +239,59 @@ else Console.WriteLine("Error - " + responseContactRemove.message);
 | Поле | Описание |
 | ------ | ------ |
 | phones | Массив удаленный номеров |
+# Работа с рассылками
+````c#
+SmsSending smsSending = new SmsSending(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+is_test - если true то смс не будут отправляться.
+use_ssl - если true то будет использоваться протокол https.
+#### Создание рассылки
+````c#
+SendingInfo sendingInfo = new SendingInfo();
+sendingInfo.include = "141606";
+sendingInfo.exclude = "141607";
+sendingInfo.sender = "mainsms";
+sendingInfo.message = "test_api_sending";
+ResponseSendingCreate responseSendingCreate = smsSending.createSending(sendingInfo);
+if (responseSendingCreate.status == "success")  Console.WriteLine($"Рассылка {responseSendingCreate.id} создана");
+else Console.WriteLine("Error - " + responseSendingCreate.message);
+````
+##### Поля класса SendingInfo
+| Поле | Описание |
+| ------ | ------ |
+| include | Группы получателей через запятую |
+| exclude | Исключенные группы получателей через запятую |
+| message | Текст сообщения |
+| sender | Имя отправителя |
+| run_at | Время отправки сообщения в часовом поясе кабинета 03.10.2031 17:00 |
+| slowtime | Интервал для плавной рассылки, например отправлять каждые 10 минут |
+| slowsize | Количество сообщений для плавной рассылки, от 10 до 10000 |
+| name | Название рассылки |
+##### Поля класса ResponseSendingCreate
+| Поле | Описание |
+| ------ | ------ |
+| id | ID рассылки |
+| cost | Стоимость рассылки |
+| parts | Количество частей в рассылке |
+| contacts | Количество получателей в рассылке |
+| include | Группы получателей через запятую |
+| exclude | Исключенные группы получателей через запятую |
+| name | Название рассылки |
+#### Запрос статуса рассылки
+````c#
+ResponseSendingStatus responseSendingStatus = smsSending.sendingStatus("166937");
+if (responseSendingStatus.status == "success")  {
+    Console.WriteLine($"Отправленно {responseSendingStatus.total}, доставлено {responseSendingStatus.delivered}");
+}
+else Console.WriteLine("Error - " + responseSendingStatus.message);
+````
+##### Поля класса ResponseSendingStatus
+| Поле | Описание |
+| ------ | ------ |
+| id | ID (номер) рассылки |
+| total | Всего получателей |
+| delivered | Количество доставленых смс |
+| undelivered | Количество не доставленых смс |
+| indelivered | Количество смс в статусе "Отправлено" |
