@@ -32,7 +32,7 @@ namespace MainSms
         /// <summary>
         /// Ответ сервера success - успех, error - неудача
         /// </summary>
-        public string status
+        public virtual string status
         {
             get { return getValue("status"); }
         }

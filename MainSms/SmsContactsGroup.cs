@@ -9,7 +9,7 @@ namespace MainSms
     {
         #region Init
         /// <summary>
-        /// Конструктор класса SmsRecipientsGroup
+        /// Конструктор класса SmsContactsGroup
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>
@@ -21,7 +21,7 @@ namespace MainSms
 
 
         /// <summary>
-        /// Конструктор класса SmsRecipientsGroup
+        /// Конструктор класса SmsContactsGroup
         /// </summary>
         /// <param name="_project">Название проекта</param>
         /// <param name="_api_key">Ключ проекта</param>

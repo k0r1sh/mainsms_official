@@ -9,15 +9,22 @@ namespace MainSmsDebug
     {
         static void Main(string[] args)
         {
-            SmsContact smsContact = new SmsContact(ConfigurationManager.AppSettings.Get("project"), ConfigurationManager.AppSettings.Get("api_key"), false);
+            SmsSending smsSending = new SmsSending(ConfigurationManager.AppSettings.Get("project"), ConfigurationManager.AppSettings.Get("api_key"), true);
+            SendingInfo sendingInfo = new SendingInfo();
+            sendingInfo.include = "141606";
+            sendingInfo.exclude = "141607";
+            sendingInfo.sender = "mainsms";
+            sendingInfo.message = "test_api_sending";
+            ResponseSendingCreate responseSendingCreate = smsSending.createSending(sendingInfo);
+            if (responseSendingCreate.status == "success") Console.WriteLine($"Рассылка {responseSendingCreate.id} создана");
+            else Console.WriteLine("Error - " + responseSendingCreate.message);
 
-            ResponseContactRemove responseContactRemove = smsContact.removeContact("79609709097, 79609709098");
-            if (responseContactRemove.status == "success")
+            ResponseSendingStatus responseSendingStatus = smsSending.sendingStatus("166937");
+            if (responseSendingStatus.status == "success")
             {
-                Console.WriteLine($"Удалено {responseContactRemove.phones.Count} контактов");
+                Console.WriteLine($"Отправленно {responseSendingStatus.total}, доставлено {responseSendingStatus.delivered}");
             }
-            else Console.WriteLine("Error - " + responseContactRemove.message);
-
+            else Console.WriteLine("Error - " + responseSendingStatus.message);
         }
     }
 }

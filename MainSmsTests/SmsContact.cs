@@ -19,7 +19,7 @@ namespace MainSmsTests
         }
 
         [Test]
-        public void createRecipientTest()
+        public void createContactTest()
         {
             ContactInfo contactInfo = new ContactInfo();
             contactInfo.phone = "79609709097";
