@@ -213,7 +213,7 @@ if (responseContactExists.status == "success")  {
 }
 else Console.WriteLine("Error - " + responseContactExists.message);
 ````
-##### Поля класса responseContactExists
+##### Поля класса ResponseContactExists
 | Поле | Описание |
 | ------ | ------ |
 | contactInfo | Массив объектов типа ContactInfo |
@@ -295,3 +295,105 @@ else Console.WriteLine("Error - " + responseSendingStatus.message);
 | delivered | Количество доставленых смс |
 | undelivered | Количество не доставленых смс |
 | indelivered | Количество смс в статусе "Отправлено" |
+# Работа с именами отправителя
+````c#
+SmsSender smsSender = new SmsSender(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+use_ssl - если true то будет использоваться протокол https.
+#### Создание имени отправителя
+````c#
+ResponseSenderCreate responseSenderCreate = smsSender.createSender("api_test");
+if (responseSenderCreate.status == "success")  Console.WriteLine($"Отправитель {responseSenderCreate.sender} создан");
+else Console.WriteLine("Error - " + responseSenderCreate.message);
+````
+##### Поля класса ResponseSenderCreate
+| Поле | Описание |
+| ------ | ------ |
+| sender | Имя созданного отправителя |
+#### Удаление имени отправителя
+````c#
+ResponseSenderRemove responseSenderRemove = smsSender.removeSender("api_test");
+if (responseSenderRemove.status == "success")  {
+    Console.WriteLine($"Имя {responseSenderRemove.sender} удалено");
+}
+else Console.WriteLine("Error - " + responseSenderRemove.message);
+````
+##### Поля класса ResponseSenderRemove
+| Поле | Описание |
+| ------ | ------ |
+| sender | Имя созданного отправителя |
+#### Запрос списка имен отправителей
+````c#
+ResponseSenderList responseSenderList = smsSender.listSender();
+if (responseSenderList.status == "success")  {
+    Console.WriteLine($"Всего {responseSenderList.senders.Count} отправителей");
+}
+else Console.WriteLine("Error - " + responseSenderList.message);
+````
+##### Поля класса ResponseSenderList
+| Поле | Описание |
+| ------ | ------ |
+| senders | Список всех имен отправителей |
+#### Запрос имени отправителя установленного по умолчанию
+````c#
+ResponseSenderDefault responseSenderDefault = smsSender.defaultSender();
+if (responseSenderDefault.status == "success")  {
+    Console.WriteLine($"Отправитель по умолчанию - {responseSenderDefault.sender}");
+}
+else Console.WriteLine("Error - " + responseSenderDefault.message);
+````
+##### Поля класса ResponseSenderDefault
+| Поле | Описание |
+| ------ | ------ |
+| sender | Имя отправителя по умолчанию |
+#### Установка отправителя по умолчанию
+````c#
+ResponseSenderSet responseSenderSet = smsSender.setSender("api_test");
+if (responseSenderSet.status == "success")  {
+    Console.WriteLine($"Отправитель по умолчанию - {responseSenderSet.sender} установлен");
+}
+else Console.WriteLine("Error - " + responseSenderSet.message);
+````
+##### Поля класса ResponseSenderSet
+| Поле | Описание |
+| ------ | ------ |
+| sender | Имя отправителя по умолчанию |
+| result | Строка в случае успеха ОК |
+# Отправка пакета СМС
+Позволяет одним запросом отправить до 100 сообщений с разным текстом, разным получателям.
+````c#
+SmsBatch smsBatch = new SmsBatch(project_id, api_key);
+````
+В качестве параметра передаем project_id, api_key и если необходимо use_ssl.
+project_id, api_key можно получить на странице https://mainsms.ru/office/api_accounts
+use_ssl - если true то будет использоваться протокол https.
+#### Отправка
+````c#
+BatchMessagesList batchMessagesList = new BatchMessagesList();
+batchMessagesList.addMessage("+79609701234", "test message1");
+batchMessagesList.addMessage("+79609701235", "test message2");
+batchMessagesList.addMessage("+79609701236", "test message3");
+ResponseBatchSend responseBatchSend = smsBatch.sendBatch(batchMessagesList);
+if (responseBatchSend.status == "success")  Console.WriteLine($"Общая стоимость сообщений {responseBatchSend.cost}");
+else Console.WriteLine("Error - " + responseBatchSend.message);
+````
+##### Поля класса ResponseBatchSend
+| Поле | Описание |
+| ------ | ------ |
+| id | Идентификатор запроса |
+| phones | Количество намеров на которые отправились сообщения |
+| parts | Общее количество отправленных частей сообщений |
+| cost | Общая стоимость отправленных сообщений |
+| errors | Список пар ID -> Ошибка, для каждого сообщения хранит ошибку отправки, если она есть |
+##### Класс BatchMessagesList
+Позволяет добавлять до 100 сообщений в список на отправку пакета смс.
+````c#
+BatchMessagesList batchMessagesList = new BatchMessagesList();
+string message1_id = batchMessagesList.addMessage("+79609701234", "test message1");
+string message2_id = batchMessagesList.addMessage("+79609701234", "test message2");
+string message3_id = batchMessagesList.addMessage("+79609701234", "test message3", "custom_message_id_1");
+batchMessagesList.removeMessage(message2_id);
+````
+В данном примере, мы добавляем в список на отправку 3 сообщения, первые 2 получат ID номер выданный автоматически, ID третьего сообщения будет равно строке "custom_message_id_1". Затем в качестве примера мы удалим из списка на отправку сообщение с message2_id.
