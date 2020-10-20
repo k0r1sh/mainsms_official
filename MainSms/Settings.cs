@@ -30,7 +30,15 @@ namespace MainSms
             { "contact_exists", "/contact/exists" },
 
             { "sending_create", "/sending/create" },
-            { "sending_status", "/sending/status" }
+            { "sending_status", "/sending/status" },
+
+            { "sender_create", "/sender/create" },
+            { "sender_remove", "/sender/remove" },
+            { "sender_list", "/sender/list" },
+            { "sender_default", "/sender/default" },
+            { "sender_set", "/sender/set" },
+
+            { "batch_send", "/batch/send" }
         };
     }
 }
